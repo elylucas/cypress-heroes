@@ -51,7 +51,7 @@ describe('hero edit page', () => {
         cy.get('@heroCard')
           .find('[data-cy=powers]')
           .should('contain.text', 'Fireball')
-          .and('contain.text', 'Super Strength');
+          .and('contain.text', 'Super Strenth');
       });
     });
 
