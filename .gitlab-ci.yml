@@ -1,0 +1,19 @@
+stages:
+  - test
+
+test:
+  image: node:latest
+  stage: test
+  script:
+    # install dependencies
+    - npm ci
+    # build
+    - npm run build
+    # Run CT Tests
+    - npm run test:ct:ci -- --record
+    # start the server in the background
+    - npm run start:ci &
+    # run Cypress e2e tests
+    - npm run test:e2e:ci
+    # run Cypress api tests
+    - npm run test:api:ci
