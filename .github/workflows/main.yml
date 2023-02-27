@@ -9,8 +9,11 @@ env:
 
 jobs:
   build-and-run-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest    
     steps:
+    - uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Checkout
         uses: actions/checkout@v3
       - name: Install dependencies & Build
@@ -34,11 +37,9 @@ jobs:
           command: npm run test:e2e:ci
           record: true
           wait-on: 'http://localhost:3000, http://localhost:3001/heroes' 
-          node-version: 16
       - name: API Tests
         uses: cypress-io/github-action@v5 # use the explicit version number
         with:
           install: false
           command: npm run test:api:ci
           wait-on: 'http://localhost:3001/heroes'
-          node-version: 16
