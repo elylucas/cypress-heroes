@@ -33,10 +33,12 @@ jobs:
           install: false
           command: npm run test:e2e:ci
           record: true
-          wait-on: 'http://localhost:3000, http://localhost:3001/heroes'      
+          wait-on: 'http://localhost:3000, http://localhost:3001/heroes' 
+          node-version: 16
       - name: API Tests
         uses: cypress-io/github-action@v5 # use the explicit version number
         with:
           install: false
           command: npm run test:api:ci
           wait-on: 'http://localhost:3001/heroes'
+          node-version: 16
