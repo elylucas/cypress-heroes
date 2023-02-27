@@ -9,13 +9,14 @@ env:
 
 jobs:
   build-and-run-tests:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/setup-node@v3
-        with:
-          node-version: 16
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Use node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
       - name: Install dependencies & Build
         uses: cypress-io/github-action@v5.0.5
         with:
@@ -23,7 +24,7 @@ jobs:
           build: npm run build
           runTests: false
       - name: CT Tests
-        uses: cypress-io/github-action@v5 # use the explicit version number
+        uses: cypress-io/github-action@v5.0.5 # use the explicit version number
         with:
           install: false
           command: npm run test:ct:ci
@@ -31,14 +32,14 @@ jobs:
       - name: Start Client & Server
         run: npm run start:ci &
       - name: E2E Tests
-        uses: cypress-io/github-action@v5 # use the explicit version number
+        uses: cypress-io/github-action@v5.0.5 # use the explicit version number
         with:
           install: false
           command: npm run test:e2e:ci
           record: true
-          wait-on: 'http://localhost:3000, http://localhost:3001/heroes' 
+          wait-on: 'http://localhost:3000, http://localhost:3001/heroes'      
       - name: API Tests
-        uses: cypress-io/github-action@v5 # use the explicit version number
+        uses: cypress-io/github-action@v5.0.5 # use the explicit version number
         with:
           install: false
           command: npm run test:api:ci
